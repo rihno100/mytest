@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>chatting</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="header"><h1>Let's chat togather</h1></div>
+<div class="chatting_wrap">
+
+  <div class="chatting">
+    <div class="title">chris</div>
+    <div class="chat_box">
+    </div>
+    <div class="input_box">
+      <input type="text" class="user_a" onkeypress="inputChat(this)"><button onclick="sendTxt(this)" class="user_a">보내기</button>
+    </div>
+  </div>
+
+  <div class="chatting">
+    <div class="title">jane</div>
+    <div class="chat_box">
+    </div>
+    <div class="input_box">
+      <input type="text" class="user_b" onkeypress="inputChat(this)"><button onclick="sendTxt(this)" class="user_b">보내기</button>
+    </div>
+  </div>
+
+  <div class="chatting">
+    <div class="title">tom</div>
+    <div class="chat_box">
+    </div>
+    <div class="input_box">
+      <input type="text" class="user_c" onkeypress="inputChat(this)"><button onclick="sendTxt(this)" class="user_c">보내기</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var inputTxt = '';
+function inputChat(event){
+    inputTxt = event.value;
+    if( window.event.keyCode == 13 ){
+      if( event.value != '' ){//입력값이 비어있지않다면
+        chattingFunc(event,0);
+        clearText(inputTxt,event,0);
+      }
+    }
+}
+
+function sendTxt(e){
+  if( e.previousElementSibling.value != '' ){//입력값이 비어있지않다면
+    chattingFunc(e,1);
+    clearText(inputTxt,e,1);
+  }
+}
+
+
+function clearText(t,v,i){
+  t = '';
+  if( i == 1 ){
+    v.previousElementSibling.value = '';
+  }else{
+    v.value = '';
+  }
+}
+
+/*채팅 실행 로직*/
+function chattingFunc(e,i){
+  if( i == 1 ){
+    inputTxt = e.previousElementSibling.value;// 보내기 버튼 누르는 현재창의 input  입력된값을 가져오기
+  }
+  var thisClassName = e.getAttribute('class');
+  var elem = document.querySelectorAll('.chat_box');
+  var elemLeng = elem.length;
+  var txt = [];//채팅창에서 입력값 받기
+  var htmlTxt = [];//채팅창 내용 담을 변수
+/*채팅장 내용가져오기*/
+  for(var i=0; i<elemLeng; i++){//양쪽 체팅창에 모두 입력하기--> 여기서 양쪽채팅창은 동
+    //htmlTxt[i] = elem[i].innerHTML;//채팅창 내용가져오기
+    htmlTxt.push(elem[i].innerHTML);//채팅창 내용가져오기
+  }
+  if( thisClassName == 'user_a' ){
+  txt.push('<div class="line right char_a"><div class="txt">'+inputTxt+'</div></div>');
+  txt.push('<div class="line char_a"><div class="txt">'+inputTxt+'</div></div>');
+  txt.push('<div class="line char_a"><div class="txt">'+inputTxt+'</div></div>');
+  }else if( thisClassName == 'user_b' ){
+  txt.push('<div class="line char_b"><div class="txt">'+inputTxt+'</div></div>');
+  txt.push('<div class="line right char_b"><div class="txt">'+inputTxt+'</div></div>');
+  txt.push('<div class="line char_b"><div class="txt">'+inputTxt+'</div></div>');
+  }else{
+  txt.push('<div class="line char_c"><div class="txt">'+inputTxt+'</div></div>');
+  txt.push('<div class="line char_c"><div class="txt">'+inputTxt+'</div></div>');
+  txt.push('<div class="line right char_c"><div class="txt">'+inputTxt+'</div></div>');
+  }
+
+//채팅창에 내용 다시 추가하기
+  for(var i=0; i<elemLeng; i++){
+    htmlTxt[i] += txt[i];//채팅창 내용에 추가한다.
+    elem[i].innerHTML = htmlTxt[i];
+    //창 내용에 스크롤이 생기면 마지막입력값 나타나게 한다.
+    elem[i].scrollTop = elem[i].scrollHeight - elem[i].offsetHeight;
+  }
+}
+
+</script>
+
+</body>
+</html>
