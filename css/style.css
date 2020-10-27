@@ -52,7 +52,7 @@ button{ border: 0; background: none; }
 
 .chatting .chat_box{
   height: 500px;
-  margin-right: 10px;
+  margin-right: -10px;
   box-sizing: border-box;
   border-radius: 2px 2px 0 0;
   padding: 60px 10px 0px 20px;
