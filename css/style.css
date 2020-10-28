@@ -55,9 +55,9 @@ button{ border: 0; background: none; }
   margin-right: -10px;
   box-sizing: border-box;
   border-radius: 2px 2px 0 0;
-  padding: 60px 10px 0px 20px;
   overflow-y: scroll;
-
+  scroll-behavior: smooth;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .chatting .chat_box:-webkit-scrollbar-track{
